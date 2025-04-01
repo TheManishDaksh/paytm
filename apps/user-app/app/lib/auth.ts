@@ -1,28 +1,65 @@
 import CredentialsProvider from "next-auth/providers/credentials"
+import bcrypt from "bcrypt";
+import db from "@repo/db/client" //this can cause error manually imported
 
 export const authOptions = {
     providers: [
         CredentialsProvider({
-          name: "Mobile Number",
-          credentials: {
-            number: { label: "Mobile Number:", type: "number", placeholder: "123123123" },
-            password: { label: "Password", type: "password" }
-          },
-          async authorize(credentials, req) {
-            const number = credentials?.number
-            const password = credentials?.password
+            name: "Mobile Number",
+            credentials: {
+                number: { label: "Mobile Number:", type: "number", placeholder: "123123123" },
+                password: { label: "Password", type: "password" }
+            },
+            //@ts-ignore
+            async authorize(credentials: any) {
+                const hashedPassword = await bcrypt.hash(credentials?.password, 10)
 
-            if (user) {
-              // Any object returned will be saved in `user` property of the JWT
-              return user
-            } else {
-              // If you return null then an error will be displayed advising the user to check their details.
-              return null
-      
-              // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+                const user = await db.user.findFirst({
+                    where: {
+                        number: credentials?.number
+                    }
+                })
+                if (user) {
+                    const passwordValidation = await bcrypt.compare(user.password, credentials.password)
+                    if (passwordValidation) {
+                        return {
+                            id: user.id.toString(),
+                            number: user.number,
+                            password: user.password,
+                            name: user.name
+                        }
+                    } else {
+                        return null;
+                    }
+                } else {
+                    try {
+                        const createUser = await db.user.create({
+                            data: {
+                                number: credentials.number,
+                                password: hashedPassword,
+                                name: credentials.name
+                            }
+                        })
+                        return {
+                            id: createUser.id.toString(),
+                            number: createUser.number,
+                            name: createUser.name,
+                            password: createUser.password
+                        }
+                    } catch (err: any) {
+                        console.log(err);
+                    }
+                    return null;
+                }
             }
-          }
         })
-      ]
-      
+    ],
+    // pending to learn/explore
+    callback: {
+        async session({ token, session }: { token: { sub: string }, session: { user: { id: string } } }) {
+            session.user.id = token.sub
+            return session
+        }
+    }
+
 }
