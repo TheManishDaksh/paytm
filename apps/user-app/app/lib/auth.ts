@@ -10,7 +10,6 @@ export const authOptions = {
                 number: { label: "Mobile Number:", type: "number", placeholder: "123123123" },
                 password: { label: "Password", type: "password" }
             },
-            //@ts-ignore
             async authorize(credentials: any) {
                 const hashedPassword = await bcrypt.hash(credentials?.password, 10)
 
@@ -54,12 +53,10 @@ export const authOptions = {
             }
         })
     ],
-    // pending to learn/explore
-    callback: {
-        async session({ token, session }: { token: { sub: string }, session: { user: { id: string } } }) {
+    callbacks: {
+        async session({ token , session } : any) {
             session.user.id = token.sub
             return session
         }
     }
-
 }
