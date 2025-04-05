@@ -19,13 +19,12 @@ export const authOptions = {
                     }
                 })
                 if (user) {
-                    const passwordValidation = await bcrypt.compare(user.password, credentials.password)
+                    const passwordValidation = await bcrypt.compare(credentials.password, user.password)
                     if (passwordValidation) {
                         return {
                             id: user.id.toString(),
                             number: user.number,
-                            password: user.password,
-                            name: user.name
+                            name: user?.name
                         }
                     } else {
                         return null;
@@ -36,13 +35,13 @@ export const authOptions = {
                             data: {
                                 number: credentials.number,
                                 password: hashedPassword,
-                                name: credentials.name
+                                name: credentials?.name
                             }
                         })
                         return {
                             id: createUser.id.toString(),
                             number: createUser.number,
-                            name: createUser.name,
+                            name: createUser?.name,
                             password: createUser.password
                         }
                     } catch (err: any) {
@@ -53,6 +52,9 @@ export const authOptions = {
             }
         })
     ],
+
+    secret : process.env.JWT_SECRET,
+       
     callbacks: {
         async session({ token , session } : any) {
             session.user.id = token.sub
