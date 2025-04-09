@@ -24,12 +24,12 @@ app.post("/hdfcbank", async(req, res )=>{
                     amount  : Number(paymentInformation.amount)
                 }
             }),
-            db.balance.updateMany({
+            db.onRampTransaction.updateMany({
                 where : {
                     token : paymentInformation.token    
                 },
                 data : {
-                    status : "Succeed"
+                    status : "Success"
                 }
             })
         ])
