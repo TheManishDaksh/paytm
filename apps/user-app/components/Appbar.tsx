@@ -1,11 +1,11 @@
-import { Button } from "./Button"
+import { Button } from "@repo/ui/Button"
 
 interface AppbarProps{
     user? : {
         name? : string | null
     }
-    onSignin : ()=>void
-    onSignout : ()=>void
+    onSignin : any
+    onSignout : any
 }
 
 export const Appbar = ({user, onSignin, onSignout}:AppbarProps)=>{
