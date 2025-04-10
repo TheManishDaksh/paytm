@@ -9,15 +9,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@prisma/client": "^6.5.0",
-    "bcrypt": "^5.1.1"
+    "bcrypt": "^5.1.1",
+    "prisma": "^6.6.0",
+    "ts-node": "^10.9.2"
   },
   "exports": {
     "./client": "./index.ts"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+ "prisma": {
+  "seed": "ts-node prisma/seed.ts"
 }
+
 }

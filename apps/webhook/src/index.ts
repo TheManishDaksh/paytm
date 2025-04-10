@@ -6,7 +6,7 @@ app.use(Express.json());
 interface paymentInfo {
     token : string
     userId : string
-    amount : string
+    amount : Number
 }
 app.post("/hdfcbank", async(req, res )=>{
     const paymentInformation : paymentInfo = {
