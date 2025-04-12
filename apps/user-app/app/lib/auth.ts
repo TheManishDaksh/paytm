@@ -7,8 +7,8 @@ export const authOptions = {
         CredentialsProvider({
             name: "Mobile Number",
             credentials: {
-                number: { label: "Mobile Number:", type: "text", placeholder: "123123123" },
-                password: { label: "Password", type: "password" }
+                number: { label: "Mobile Number:", type: "text", placeholder: "123123123", required : true },
+                password: { label: "Password", type: "password", required : true }
             },
             async authorize(credentials: any) {
                 const hashedPassword = await bcrypt.hash(credentials?.password, 10)
