@@ -1,13 +1,13 @@
 import { Card } from "@repo/ui/Card"
 
-export const OnRampTransactionCard=({transaction}:{
-    transaction : {
-        time : Date
-        status : string
-        amount : number
-        provider : string
-    }[]
-})=>{
+type transactionProps = {
+    time : Date 
+    amount : number
+    provider : string
+    status : string
+}
+
+export const OnRampTransactionCard=({transaction}:{transaction : transactionProps[]})=>{
     if(!transaction.length){
         return (
             <Card title="Transaction History"> 

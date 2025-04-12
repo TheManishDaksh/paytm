@@ -5,10 +5,9 @@ import { BalanceCard } from "../../../components/BlanceCard";
 import { AddMoneyCard } from "../../../components/AddMoneyCard";
 import { OnRampTransactionCard } from "../../../components/OnRampTransactionCard";
 
-//some type errors to solve
 async function getBalance(){
     const session = await getServerSession(authOptions)
-    const balance = await prisma.balance.findMany({
+    const balance = await prisma.balance.findFirst({
         where : {
             userId : Number(session?.user?.id)
         }
@@ -28,7 +27,7 @@ async function getOnRampTransaction(){
     })
     return (transaction.map((x)=>({
         time : x.startTime,
-        Provider : x.provider,
+        provider : x.provider,
         amount : x.amount,
         status : x.status
     })))

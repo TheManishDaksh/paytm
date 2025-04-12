@@ -1,5 +1,4 @@
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 
 interface layoutProps{
     title : string
