@@ -1,3 +1,4 @@
+"use client"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../lib/auth"
 import prisma from "@repo/db/client"
@@ -33,7 +34,7 @@ async function getOnRampTransaction(){
     })))
 }
 
-export async function Transfer (){
+export default async function(){
     const balance = await getBalance()
     const transaction = await getOnRampTransaction()
     return (

@@ -1,5 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import db from "@repo/db/client" //this can cause error manually imported
 
 export const authOptions = {
@@ -7,8 +7,8 @@ export const authOptions = {
         CredentialsProvider({
             name: "Mobile Number",
             credentials: {
-                number: { label: "Mobile Number:", type: "text", placeholder: "123123123", required : true },
-                password: { label: "Password", type: "password", required : true }
+                number: { label: "Mobile Number:", type: "text", placeholder: "123123123" },
+                password: { label: "Password", type: "password" }
             },
             async authorize(credentials: any) {
                 const hashedPassword = await bcrypt.hash(credentials?.password, 10)
@@ -51,7 +51,7 @@ export const authOptions = {
         })
     ],
 
-    secret : process.env.JWT_SECRET,
+    secret : process.env.NEXTAUTH_SECRET || "MAnishKuamarSecret9548263179",
        
     callbacks: {
         async session({ token , session } : any) {

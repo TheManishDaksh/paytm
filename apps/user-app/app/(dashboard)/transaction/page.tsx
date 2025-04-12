@@ -1,6 +1,6 @@
 
 
-export function Transaction (){
+export default function(){
     return (
         <div>
             Transactions
