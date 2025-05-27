@@ -5,7 +5,7 @@ import db from "@repo/db/client" //this can cause error manually imported
 export const authOptions = {
     providers: [
         CredentialsProvider({
-            name: "Mobile Number",
+            name: "Credentials",
             credentials: {
                 number: { label: "Mobile Number:", type: "text", placeholder: "123123123" },
                 password: { label: "Password", type: "password" }
@@ -39,8 +39,8 @@ export const authOptions = {
                         })
                         return {
                             id: createUser.id.toString(),
-                            number: createUser.number,
-                            password: createUser.password
+                            name: createUser.name,
+                            email: createUser.email
                         }
                     } catch (err: any) {
                         console.log(err);
@@ -51,7 +51,7 @@ export const authOptions = {
         })
     ],
 
-    secret : process.env.NEXTAUTH_SECRET || "MAnishKuamarSecret9548263179",
+    secret : process.env.JWT_SECRET || "MAnishKuamarSecret9548263179",
        
     callbacks: {
         async session({ token , session } : any) {

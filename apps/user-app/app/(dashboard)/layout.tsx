@@ -4,7 +4,7 @@ export function layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <div>
-        <Sidebar title={"Dashboard"} icon={<HomeIcon />} href={"/dashboard"} />
+        <Sidebar title={"Home"} icon={<HomeIcon />} href={"/dashboard"} />
         <Sidebar title="Transfer" icon={<TransferIcon />} href={"/transfer"} />
         <Sidebar
           title="Transaction"
