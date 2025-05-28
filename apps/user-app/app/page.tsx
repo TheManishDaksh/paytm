@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export default async function Home(){
   const session = await getServerSession(authOptions)
-    if(session?.user){
+    if(session?.data?.user){
       redirect("/dashboard")
     }
     redirect("/api/auth/signin")

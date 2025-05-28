@@ -1,6 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs";
-import db from "@repo/db/client" //this can cause error manually imported
+import db from "@repo/db/client"
 
 export const authOptions = {
     providers: [
@@ -26,36 +26,46 @@ export const authOptions = {
                             number: user.number,
                             name: user?.name
                         }
-                    } 
-                        return null;
-                    }
-                
-                    try {
-                        const createUser = await db.user.create({
-                            data: {
-                                number: credentials.number,
-                                password: hashedPassword
-                            }
-                        })
-                        return {
-                            id: createUser.id.toString(),
-                            name: createUser.name,
-                            email: createUser.email
-                        }
-                    } catch (err: any) {
-                        console.log(err);
                     }
                     return null;
-                
+                }
+
+                try {
+                    const createUser = await db.user.create({
+                        data: {
+                            number: credentials.number,
+                            password: hashedPassword
+                        }
+                    })
+                    return {
+                        id: createUser.id.toString(),
+                        name: createUser.name,
+                        email: createUser.email
+                    }
+                } catch (err: any) {
+                    console.log(err);
+                }
+                return null;
+
             }
         })
     ],
 
-    secret : process.env.JWT_SECRET || "MAnishKuamarSecret9548263179",
-       
+    secret: process.env.JWT_SECRET || "MAnishKuamarSecret9548263179",
+
+
     callbacks: {
-        async session({ token , session } : any) {
-            session.user.id = token.sub
+        async jwt({ token, account, profile }:any) {
+            if (account) {
+                token.accessToken = account.access_token
+                token.id = profile.id
+            }
+            return token
+        },
+        async session({ session, token, user }: any) {
+            session.accessToken = token.accessToken
+            session.user.id = token.id
+
             return session
         }
     }
