@@ -10,7 +10,7 @@
     "typescript": "^5.0.0"
   },
   "exports": {
-    "./client": "./index.ts"
+    "./client": "./src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "6.8.2"
