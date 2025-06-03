@@ -11,15 +11,21 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/db": "*",
     "@repo/ui": "*",
+    "@tailwindcss/postcss": "^4.1.8",
+    "bcrypt": "^6.0.0",
     "next": "^15.3.0",
+    "next-auth": "^4.24.11",
+    "postcss": "^8.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "@repo/db" : "*"
+    "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
