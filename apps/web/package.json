@@ -1,5 +1,5 @@
 {
-  "name": "user-app",
+  "name": "web",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -11,22 +11,18 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "*",
-    "@tailwindcss/postcss": "^4.1.8",
+    "@repo/ui": "workspace:*",
     "next": "^15.3.0",
-    "next-auth": "^4.24.11",
-    "postcss": "^8.4.31",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.8"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
-    "eslint": "^9.27.0",
+    "eslint": "^9.28.0",
     "typescript": "5.8.2"
   }
 }
